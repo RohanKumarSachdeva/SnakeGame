@@ -1,5 +1,9 @@
 NOTES:
 
+# Initializing and exiting pygame:
+ - pygame.init(), the very first method to initialize pygame.
+ - On an event.type == pygame.QUIT, we call pygame.quit() to terminate pygame.
+
 # Frame Rate and clock tick function:
  - The process runs an infinite while loop whenever it gets scheduled by CPU.
  - This will increase the CPU utilisation
@@ -15,4 +19,14 @@ NOTES:
 2) Surface
   - A layer that can display graphics.
   - There can be multiple surfaces.
-  - These are not displayed by default. 
+  - These are not displayed by default.
+  - Surface can be created by: importing image, writing text or an empty space.
+    pygame.Surface((100, 200))
+  - After creating they need to be put on "Display Surface". We use blit(block image
+    transfer) game_screen.blit(test_surface, (200, 250)); takes name and position where
+    you want this test surface to be drawn on.
+
+# Filling background color
+  - game_screen.fill(pygame.Color('green')), we can also use game_screen.fill((r,g,b)) RGB
+    tuple.
+  - Value of R,G,B range from 0-255.
