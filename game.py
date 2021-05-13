@@ -1,4 +1,5 @@
-import pygame, sys
+import pygame
+import sys
 
 # Initializing pygame
 pygame.init()
@@ -6,7 +7,8 @@ pygame.init()
 screen_width = 1280
 screen_height = 900
 game_screen = pygame.display.set_mode((screen_width, screen_height))
-
+# To make the game run consistently we restrict its frame rate
+clock = pygame.time.Clock()
 while True:
     # Start of every iteration we check for any event
     for event in pygame.event.get():
@@ -14,5 +16,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-            # Draw all elements
+    # Refreshing game surface
     pygame.display.update()
+    # Restricting while loop to run 60 times per second
+    clock.tick(60)
