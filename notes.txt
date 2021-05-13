@@ -1,0 +1,18 @@
+NOTES:
+
+# Frame Rate and clock tick function:
+ - The process runs an infinite while loop whenever it gets scheduled by CPU.
+ - This will increase the CPU utilisation
+ - To avoid this we make the game run consistently by restrict its frame rate.
+ - clock.tick(60), will make the loop run only 60 times per second.
+
+# Types of surfaces in PyGame module:
+1) Display Surface  
+  - It's the canvas on which the entire game is drawn on.
+  - There is only one display surface in the entire window.
+  - This surface is displayed by default.
+
+2) Surface
+  - A layer that can display graphics.
+  - There can be multiple surfaces.
+  - These are not displayed by default. 
