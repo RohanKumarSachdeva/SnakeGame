@@ -3,11 +3,11 @@ import sys
 
 # Initializing pygame
 pygame.init()
-# Game surface
+# Game display surface
 screen_width = 1280
 screen_height = 900
 game_screen = pygame.display.set_mode((screen_width, screen_height))
-# To make the game run consistently we restrict its frame rate
+# To restrict programs frame rate
 clock = pygame.time.Clock()
 while True:
     # Start of every iteration we check for any event
