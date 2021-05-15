@@ -54,6 +54,11 @@ class Fruit:
         # Draw the above fruit surface on game_screen
         pygame.draw.rect(game_screen, (0, 100, 0), fruit_rect)
 
+    def respawn_fruit(self):
+        self.x = random.randint(0, cell_count - 1)
+        self.y = random.randint(0, cell_count - 1)
+        self.pos = Vector2(self.x, self.y)
+
 
 # Game logic class
 class Main:
@@ -64,10 +69,15 @@ class Main:
 
     def update(self):
         self.snake.move_snake()
+        self.check_collision()
 
     def draw_elements(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+
+    def check_collision(self):
+        if self.fruit.pos == self.snake.body[0]:
+            self.fruit.respawn_fruit()
 
 
 main_game = Main()
