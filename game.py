@@ -55,10 +55,22 @@ class Fruit:
         pygame.draw.rect(game_screen, (0, 100, 0), fruit_rect)
 
 
-# Instantiating Fruit object
-fruit = Fruit()
-# Instantiating Snake object
-snake = Snake()
+# Game logic class
+class Main:
+    def __init__(self):
+        # Create snake and fruit class objects with main class object.
+        self.snake = Snake()
+        self.fruit = Fruit()
+
+    def update(self):
+        self.snake.move_snake()
+
+    def draw_elements(self):
+        self.fruit.draw_fruit()
+        self.snake.draw_snake()
+
+
+main_game = Main()
 # Creating own screen update event
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
@@ -70,21 +82,20 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == SCREEN_UPDATE:
-            snake.move_snake()
+            main_game.update()
         # On KEY DOWN event we change snake.direction
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                snake.direction = Vector2(0, -1)
+                main_game.snake.direction = Vector2(0, -1)
             if event.key == pygame.K_DOWN:
-                snake.direction = Vector2(0, 1)
+                main_game.snake.direction = Vector2(0, 1)
             if event.key == pygame.K_LEFT:
-                snake.direction = Vector2(-1, 0)
+                main_game.snake.direction = Vector2(-1, 0)
             if event.key == pygame.K_RIGHT:
-                snake.direction = Vector2(1, 0)
+                main_game.snake.direction = Vector2(1, 0)
 
     game_screen.fill((175, 215, 70))
-    fruit.draw_fruit()
-    snake.draw_snake()
+    main_game.draw_elements()
     # Refreshing game surface
     pygame.display.update()
     # Restricting while loop to run 60 times per second
