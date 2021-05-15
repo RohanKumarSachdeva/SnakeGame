@@ -37,6 +37,11 @@ class Snake:
         body_copy.insert(0, body_copy[0] + self.direction)
         self.body = body_copy
 
+    def increase_snake(self):
+        body_copy = self.body[:]
+        body_copy.insert(0, body_copy[0] + self.direction)
+        self.body = body_copy
+
 
 # Fruit Class
 class Fruit:
@@ -78,6 +83,7 @@ class Main:
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.respawn_fruit()
+            self.snake.increase_snake()
 
 
 main_game = Main()
