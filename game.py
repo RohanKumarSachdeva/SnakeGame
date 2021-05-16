@@ -85,6 +85,9 @@ class Main:
             self.fruit.respawn_fruit()
             self.snake.increase_snake()
 
+        if self.snake.body[0] in self.snake.body[1:]:
+            print("game over")
+
 
 main_game = Main()
 # Creating own screen update event
