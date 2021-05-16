@@ -14,6 +14,7 @@ pygame.display.set_caption('Snake Game')
 clock = pygame.time.Clock()
 apple = pygame.image.load("Graphics/apple-image.png").convert_alpha()
 
+
 # Snake Class
 class Snake:
     def __init__(self):
@@ -57,8 +58,8 @@ class Fruit:
                                  self.pos.y * cell_size,
                                  cell_size, cell_size)
         # Draw the above fruit surface on game_screen
-        game_screen.blit(apple,fruit_rect)
-        #pygame.draw.rect(game_screen, (0, 100, 0), fruit_rect)
+        game_screen.blit(apple, fruit_rect)
+        # pygame.draw.rect(game_screen, (0, 100, 0), fruit_rect)
 
     def respawn_fruit(self):
         self.x = random.randint(0, cell_count - 1)
