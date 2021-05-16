@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 # Snake Class
 class Snake:
     def __init__(self):
-        self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)]
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0)
 
     def draw_snake(self):
@@ -75,6 +75,7 @@ class Main:
     def update(self):
         self.snake.move_snake()
         self.check_collision()
+        self.check_fail()
 
     def draw_elements(self):
         self.fruit.draw_fruit()
@@ -85,8 +86,22 @@ class Main:
             self.fruit.respawn_fruit()
             self.snake.increase_snake()
 
-        if self.snake.body[0] in self.snake.body[1:]:
-            print("game over")
+    def check_fail(self):
+        if not 0 <= self.snake.body[0].x < cell_count or \
+                not 0 <= self.snake.body[0].y < cell_count:
+            self.game_over()
+
+        for block in self.snake.body[1:]:
+            if block == self.snake.body[0]:
+                self.game_over()
+
+    # noinspection PyMethodMayBeStatic
+    # this because the method does not use self in its body and hence does
+    # not actually change the class instance. Hence the method could be static,
+    # i.e. callable without passing a class instance
+    def game_over(self):
+        pygame.quit()
+        sys.exit()
 
 
 main_game = Main()
