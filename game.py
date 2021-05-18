@@ -13,6 +13,7 @@ pygame.display.set_caption('Snake Game')
 # To restrict program's frame rate
 clock = pygame.time.Clock()
 apple = pygame.image.load("Graphics/apple-image.png").convert_alpha()
+game_font = pygame.font.Font("Font/PoetsenOne-Regular.ttf", 25)
 
 
 # Snake Class
@@ -151,6 +152,7 @@ class Main:
         self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        self.draw_score()
 
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:
@@ -181,13 +183,27 @@ class Main:
             if row % 2 == 0:
                 for column in range(cell_count):
                     if column % 2 == 0:
-                        grass_rect = pygame.Rect(column * cell_size, row*cell_size, cell_size, cell_size)
+                        grass_rect = pygame.Rect(column * cell_size, row * cell_size, cell_size, cell_size)
                         pygame.draw.rect(game_screen, grass_color, grass_rect)
             else:
                 for column in range(cell_count):
                     if column % 2 != 0:
-                        grass_rect = pygame.Rect(column * cell_size, row*cell_size, cell_size, cell_size)
+                        grass_rect = pygame.Rect(column * cell_size, row * cell_size, cell_size, cell_size)
                         pygame.draw.rect(game_screen, grass_color, grass_rect)
+
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3)
+        score_surface = game_font.render(score_text, True, (54, 74, 12))
+        score_posx = int(cell_size * cell_count - 60)
+        score_posy = int(cell_size * cell_count - 40)
+        score_rect = score_surface.get_rect(center=(score_posx, score_posy))
+        fruit_rect = apple.get_rect(midright=(score_rect.left, score_rect.centery))
+        bg_rect = pygame.Rect(fruit_rect.left, fruit_rect.top,
+                              fruit_rect.width + score_rect.width + 6, fruit_rect.height)
+        pygame.draw.rect(game_screen, (167, 209, 61), bg_rect)
+        game_screen.blit(score_surface, score_rect)
+        game_screen.blit(apple, fruit_rect)
+        pygame.draw.rect(game_screen, (0, 0, 0), bg_rect, 2)
 
 
 main_game = Main()
