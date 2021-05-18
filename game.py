@@ -117,6 +117,10 @@ class Snake:
     def play_crunch_sound(self):
         self.crunch_sound.play()
 
+    def reset(self):
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+        self.direction = Vector2(0, 0)
+
 
 # Fruit Class
 class Fruit:
@@ -165,6 +169,10 @@ class Main:
             self.snake.increase_snake()
             self.snake.play_crunch_sound()
 
+        for block in self.snake.body[1:]:
+            if block == self.fruit.pos:
+                self.fruit.respawn_fruit()
+
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_count or \
                 not 0 <= self.snake.body[0].y < cell_count:
@@ -179,8 +187,7 @@ class Main:
     # not actually change the class instance. Hence the method could be static,
     # i.e. callable without passing a class instance
     def game_over(self):
-        pygame.quit()
-        sys.exit()
+        self.snake.reset()
 
     # noinspection PyMethodMayBeStatic
     def draw_grass(self):
