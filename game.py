@@ -79,8 +79,25 @@ class Snake:
             elif index == len(self.body) - 1:
                 game_screen.blit(self.tail, snake_rect)
             else:
-                # Draw the body part on above surface
-                pygame.draw.rect(game_screen, (255, 0, 0), snake_rect)
+                relative_prev_part = self.body[index + 1] - part
+                relative_next_part = self.body[index - 1] - part
+                if relative_prev_part.x == relative_next_part.x:
+                    game_screen.blit(self.body_vertical, snake_rect)
+                elif relative_prev_part.y == relative_next_part.y:
+                    game_screen.blit(self.body_horizontal, snake_rect)
+                else:
+                    if (relative_prev_part.x == -1 and relative_next_part.y == -1) or \
+                            (relative_prev_part.y == -1 and relative_next_part.x == -1):
+                        game_screen.blit(self.body_tl, snake_rect)
+                    elif (relative_prev_part.x == -1 and relative_next_part.y == 1) or \
+                            (relative_prev_part.y == 1 and relative_next_part.x == -1):
+                        game_screen.blit(self.body_bl, snake_rect)
+                    elif (relative_prev_part.x == 1 and relative_next_part.y == -1) or \
+                            (relative_prev_part.y == -1 and relative_next_part.x == 1):
+                        game_screen.blit(self.body_tr, snake_rect)
+                    elif (relative_prev_part.x == 1 and relative_next_part.y == 1) or \
+                            (relative_prev_part.y == 1 and relative_next_part.x == 1):
+                        game_screen.blit(self.body_br, snake_rect)
 
     def move_snake(self):
         # Copy body parts from head to tail-1
