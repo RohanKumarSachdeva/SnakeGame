@@ -148,6 +148,7 @@ class Main:
         self.check_fail()
 
     def draw_elements(self):
+        self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
 
@@ -172,6 +173,21 @@ class Main:
     def game_over(self):
         pygame.quit()
         sys.exit()
+
+    # noinspection PyMethodMayBeStatic
+    def draw_grass(self):
+        grass_color = (167, 209, 61)
+        for row in range(cell_count):
+            if row % 2 == 0:
+                for column in range(cell_count):
+                    if column % 2 == 0:
+                        grass_rect = pygame.Rect(column * cell_size, row*cell_size, cell_size, cell_size)
+                        pygame.draw.rect(game_screen, grass_color, grass_rect)
+            else:
+                for column in range(cell_count):
+                    if column % 2 != 0:
+                        grass_rect = pygame.Rect(column * cell_size, row*cell_size, cell_size, cell_size)
+                        pygame.draw.rect(game_screen, grass_color, grass_rect)
 
 
 main_game = Main()
