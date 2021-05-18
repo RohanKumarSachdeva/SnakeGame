@@ -42,6 +42,8 @@ class Snake:
         self.body_br = pygame.image.load('Graphics/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load('Graphics/body_bl.png').convert_alpha()
 
+        self.crunch_sound = pygame.mixer.Sound('Sound/Sound_crunch.wav')
+
     def update_head_graphics(self):
         relative_position = self.body[1] - self.body[0]
         if relative_position == Vector2(1, 0):
@@ -112,6 +114,9 @@ class Snake:
         body_copy.insert(0, body_copy[0] + self.direction)
         self.body = body_copy
 
+    def play_crunch_sound(self):
+        self.crunch_sound.play()
+
 
 # Fruit Class
 class Fruit:
@@ -158,6 +163,7 @@ class Main:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.respawn_fruit()
             self.snake.increase_snake()
+            self.snake.play_crunch_sound()
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_count or \
