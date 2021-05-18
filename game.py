@@ -19,6 +19,7 @@ apple = pygame.image.load("Graphics/apple-image.png").convert_alpha()
 class Snake:
     def __init__(self):
         self.head = None
+        self.tail = None
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0)
 
@@ -51,8 +52,20 @@ class Snake:
         elif relative_position == Vector2(0, -1):
             self.head = self.head_down
 
+    def update_tail_graphics(self):
+        relative_position = self.body[-2] - self.body[-1]
+        if relative_position == Vector2(1, 0):
+            self.tail = self.tail_left
+        elif relative_position == Vector2(-1, 0):
+            self.tail = self.tail_right
+        elif relative_position == Vector2(0, 1):
+            self.tail = self.tail_up
+        elif relative_position == Vector2(0, -1):
+            self.tail = self.tail_down
+
     def draw_snake(self):
         self.update_head_graphics()
+        self.update_tail_graphics()
         # Using enumerate to get the index and element from array
         for index, part in enumerate(self.body):
             # Create a rectangle snake's body part surface
@@ -63,7 +76,8 @@ class Snake:
             # Find which direction the snake is heading
             if index == 0:
                 game_screen.blit(self.head, snake_rect)
-
+            elif index == len(self.body) - 1:
+                game_screen.blit(self.tail, snake_rect)
             else:
                 # Draw the body part on above surface
                 pygame.draw.rect(game_screen, (255, 0, 0), snake_rect)
