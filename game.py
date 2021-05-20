@@ -16,6 +16,22 @@ apple = pygame.image.load("Graphics/apple-image.png").convert_alpha()
 game_font = pygame.font.Font("Font/PoetsenOne-Regular.ttf", 25)
 
 
+class Obstacles:
+    def __init__(self):
+        self.blocks = [Vector2(14, 5), Vector2(14, 4), Vector2(13, 4), Vector2(12, 4), Vector2(11, 4),
+                       Vector2(10, 4), Vector2(9, 4), Vector2(8, 4), Vector2(7, 4), Vector2(6, 4),
+                       Vector2(5, 4), Vector2(5, 5), Vector2(14, 14), Vector2(14, 15), Vector2(13, 15),
+                       Vector2(12, 15), Vector2(11, 15), Vector2(10, 15), Vector2(9, 15), Vector2(8, 15),
+                       Vector2(7, 15), Vector2(6, 15), Vector2(5, 15), Vector2(5, 14)]
+
+    def draw_obstacle(self):
+        for block in self.blocks:
+            blocks_rect = pygame.Rect(block.x * cell_size,
+                                      block.y * cell_size,
+                                      cell_size, cell_size)
+            pygame.draw.rect(game_screen, (0, 100, 0), blocks_rect)
+
+
 # Snake Class
 class Snake:
     def __init__(self):
@@ -151,6 +167,7 @@ class Main:
         # Create snake and fruit class objects with main class object.
         self.snake = Snake()
         self.fruit = Fruit()
+        self.obstacle = Obstacles()
 
     def update(self):
         self.snake.move_snake()
@@ -162,6 +179,7 @@ class Main:
         self.fruit.draw_fruit()
         self.snake.draw_snake()
         self.draw_score()
+        self.obstacle.draw_obstacle()
 
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:
