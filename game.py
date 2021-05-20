@@ -58,7 +58,7 @@ class Snake:
         self.body_br = pygame.image.load('Graphics/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load('Graphics/body_bl.png').convert_alpha()
 
-        self.crunch_sound = pygame.mixer.Sound('Sound/Sound_crunch.wav')
+        self.crunch_sound = pygame.mixer.Sound('Sound/crunchy.wav')
 
     def update_head_graphics(self):
         relative_position = self.body[1] - self.body[0]
@@ -132,6 +132,7 @@ class Snake:
 
     def play_crunch_sound(self):
         self.crunch_sound.play()
+        self.crunch_sound.set_volume(0.08)
 
     def reset(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
@@ -168,6 +169,7 @@ class Main:
         self.snake = Snake()
         self.fruit = Fruit()
         self.obstacle = Obstacles()
+        self.over = pygame.mixer.Sound('Sound/game_over.wav')
 
     def update(self):
         self.snake.move_snake()
@@ -198,6 +200,8 @@ class Main:
         if not 0 <= self.snake.body[0].x < cell_count or \
                 not 0 <= self.snake.body[0].y < cell_count:
             self.game_over()
+            self.over.play()
+            self.over.set_volume(0.08)
 
         for block in self.snake.body[1:]:
             if block == self.snake.body[0]:
@@ -206,6 +210,8 @@ class Main:
         for block in self.obstacle.blocks:
             if self.snake.body[0] == block:
                 self.game_over()
+                self.over.play()
+                self.over.set_volume(0.08)
 
     # noinspection PyMethodMayBeStatic
     # this because the method does not use self in its body and hence does
@@ -278,3 +284,4 @@ while True:
     pygame.display.update()
     # Restricting while loop to run 60 times per second
     clock.tick(60)
+
