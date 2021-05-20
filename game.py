@@ -203,6 +203,10 @@ class Main:
             if block == self.snake.body[0]:
                 self.game_over()
 
+        for block in self.obstacle.blocks:
+            if self.snake.body[0] == block:
+                self.game_over()
+
     # noinspection PyMethodMayBeStatic
     # this because the method does not use self in its body and hence does
     # not actually change the class instance. Hence the method could be static,
