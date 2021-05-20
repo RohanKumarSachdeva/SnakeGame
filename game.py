@@ -190,6 +190,9 @@ class Main:
         for block in self.snake.body[1:]:
             if block == self.fruit.pos:
                 self.fruit.respawn_fruit()
+        for obstacle in self.obstacle.blocks:
+            if obstacle == self.fruit.pos:
+                self.fruit.respawn_fruit()
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_count or \
